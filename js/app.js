@@ -24,6 +24,8 @@ App.Item = DS.Model.extend({
     publishedDate: function() {
         return moment.unix(this.get('time')).fromNow();
     }.property('time'),
+    isUrl: function() { return this.get('type') == 'story' }.property('type'),
+    isJob: function() { return this.get('type') == 'job' }.property('type')
 });
 
 Ember.Inflector.inflector.uncountable('item');

@@ -24,7 +24,7 @@
                                     <td style="width:18px;padding-right:4px">
                                         <img src="img/y18.gif" width="18" height="18" style="border:1px #ffffff solid;">
                                     </td>
-                                    <td style="line-height:12pt; height:10px;"><span class="pagetop"><b><a href="/">Hacker News</a></b></span>
+                                    <td style="line-height:12pt; height:10px;"><span class="pagetop"><b><a href="news">Hacker News</a></b></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -50,12 +50,18 @@
   {{#each item in model}}
     {{#if item.title}}
       <tr>
-          <td class="title" style="padding-left: 10px;"><a {{bind-attr href=item.url}}>{{item.title}}</a><span class="comhead"> ({{item.domain}}) </span>
+          <td class="title" style="padding-left: 10px;">
+            {{#if item.isUrl}}
+              <a {{bind-attr href=item.url}}>{{item.title}}</a><span class="comhead"> ({{item.domain}}) </span>
+            {{else}}
+              <a {{bind-attr href=item.commentsUrl}}>{{item.title}}</a>
+            {{/if}}
           </td>
       </tr>
       <tr>
-          <td class="subtext" style="padding-left: 10px;"><span>{{item.score}} points</span> by <a {{bind-attr href=item.authorUrl}}>{{item.by}}</a> {{item.publishedDate}} | <a {{bind-attr href=item.commentsUrl}}>comments</a>
-          </td>
+            <td class="subtext" style="padding-left: 10px;">
+              {{#unless item.isJob}}<span>{{item.score}} points</span> by <a {{bind-attr href=item.authorUrl}}>{{item.by}}</a> {{/unless}}{{item.publishedDate}}{{#unless item.isJob}} | <a {{bind-attr href=item.commentsUrl}}>comments</a>{{/unless}}
+            </td>
       </tr>
       <tr style="height:10px"></tr>
     {{/if}}
